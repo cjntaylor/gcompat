@@ -1,0 +1,72 @@
+diff --git a/libgcompat/ucontext.c b/libgcompat/ucontext.c
+index 1e7618c..f598ff7 100644
+--- a/libgcompat/ucontext.c
++++ b/libgcompat/ucontext.c
+@@ -1,11 +1,67 @@
+ #include <errno.h> /* errno, ENOSYS */
++#include <stdio.h>
++#include <stdlib.h>
++#include <stdarg.h>
+ 
+ #ifndef HAVE_LIBUCONTEXT
+ 
++// https://man7.org/linux/man-pages/man3/getcontext.3.html
+ int getcontext(void *ucp)
+ {
+ 	errno = ENOSYS;
+ 	return -1;
+ }
+ 
++int setcontext(void *ucp)
++{
++	errno = ENOSYS;
++	return -1;
++}
++
++// https://man7.org/linux/man-pages/man3/makecontext.3.html
++void makecontext(void *ucp, void *func, int argc, ...)
++{
++	abort();
++}
++
++int swapcontext(void *oucp, void* ucp)
++{
++	errno = ENOSYS;
++	return -1;
++}
++
++int __isoc23_fscanf(FILE *stream, const char *format, ...) {
++ int rc;
++	va_list args;
++ va_start(args, format);
++ rc = vfscanf(stream, format, args);
++ va_end(args);
++ return rc;
++}
++
++int __isoc23_sscanf(const char *str, const char *format, ...) {
++ int rc;
++	va_list args;
++ va_start(args, format);
++ rc = vsscanf(str, format, args);
++ va_end(args);
++ return rc;
++}
++
++long long __isoc23_strtoll(const char *nptr, char **endptr, int base) {
++ return strtoll(nptr, endptr, base);
++}
++
++unsigned long long __isoc23_strtoull(const char *nptr, char **endptr, int base) {
++ return strtoull(nptr, endptr, base);
++}
++
++long __isoc23_strtol(const char *nptr, char **endptr, int base) {
++ return strtol(nptr, endptr, base);
++}
++
++unsigned long __isoc23_strtoul(const char *nptr, char **endptr, int base) {
++ return strtoul(nptr, endptr, base);
++}
++
+ #endif

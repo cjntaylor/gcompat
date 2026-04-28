@@ -1,0 +1,13 @@
+*
+!.gitignore
+
+!README.md
+
+!/.github
+!/.github/workflows
+!/.github/workflows/build-and-release.yml
+
+!/Dockerfile
+!/docker-bake.hcl
+!/gcompat-arm64.diff
+!/gcompat-riscv64.diff
